@@ -15,18 +15,31 @@ const dbConnection = require("./databaseConnection.js");
 
 const app = express();
 
+dbConnection();
+
 const port = 8081;
 
-// app.use(express.json());
+app.use(express.json());
 
-// app.get("/", (req, res) => {
-//     res.status(200).json({
-//         message: "Server is up & Running..."
-//     });
+app.get("/", (req, res) => {
+    res.status(200).json({
+        message: "Server is up & Running..."
+    });
+});
 
+app.use("/users", userRouter);
+app.use("/books", booksRouter);
+
+
+app.get("*",(req, res)=>{
+    res.status(404).json({
+        message: "This route doesn't exist",
+    });
+})
+    
     app.listen(port, () => {
-        console.log(`Server is Listn ing at port ${port}`);
+        console.log(`Server is Listning at port ${port}`);
     });
 // })
 
-dbConnection();
+// dbConnection();

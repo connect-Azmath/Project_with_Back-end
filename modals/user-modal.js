@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-const schema = mongoose.schema;
+const Schema = mongoose.Schema;
 
-const userSchema = new schema(
+const userSchema = new Schema(
     {
         name:{
             type: String,
@@ -16,10 +16,31 @@ const userSchema = new schema(
             type: String,
             required: true,
         },
+        issuedBook: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: false,
+            ref: "Book"
+        },
+        issuedDate: {
+            type: String,
+            required: false,
+        },
+        returnDate: {
+            type: String,
+            required: false 
+        },
+        subscriptionType: {
+            type: String,
+            required: true 
+        },
+        subscriptionDate: {
+            type: String,
+            required: true 
+        }
     },
     {
         timestamps: true
     }
 );
 
-module.exports = mongoose.modal("User", userSchema)
+module.exports = mongoose.model("User", userSchema);
